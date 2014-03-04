@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  
+	  <h:head>
+	  	<title>login</title>
+	  </h:head>
+	  <h:body>
+	  		<h:form>
+	  			<h:commandLink action="nav-to-welcome" value="WELCOME" />
+	  		</h:form>
+	  		<h2>Log in</h2>
+	  		<h:form>
+	  			<h:panelGrid columns="2">
+	  		
+	  				<h:outputText value="Login" />
+	  				<h:inputText value="#{authBean.user.login}" />
+	  				<h:outputText value="Password" />
+	  				<h:inputSecret value="#{authBean.user.password}" />
+	  				<h:commandButton action="#{authBean.doLogin}" value="log in" />
+	  			
+	  			</h:panelGrid>
+	  		</h:form>
+	  </h:body>
+	
+</html>
