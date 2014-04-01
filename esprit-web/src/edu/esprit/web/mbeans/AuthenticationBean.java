@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import edu.app.business.AuthenticationServiceLocal;
 import edu.app.persistence.Admin;
@@ -22,7 +24,8 @@ public class AuthenticationBean implements Serializable{
 	private AuthenticationServiceLocal authenticationServiceLocal;
 	
 	//model
-	private User user; 
+	private User user;
+	private boolean loggedIn;
 	//
 	
 	
@@ -33,6 +36,7 @@ public class AuthenticationBean implements Serializable{
 	@PostConstruct
 	public void initModel(){
 		user = new User();
+		loggedIn = false;
 	}
 	
 	public String doLogin(){
@@ -41,13 +45,22 @@ public class AuthenticationBean implements Serializable{
 		User found = authenticationServiceLocal.authenticate(user.getLogin(), user.getPassword());
 		if (found != null) {
 			user = found;
+			loggedIn = true;
 			if(user instanceof Admin){
-				navigateTo = "success";
+				navigateTo = "/pages/admin/home?faces-redirect=true";
 			}
 			
 		}else {
-			navigateTo = "failure";
+			loggedIn = false;
+			FacesContext.getCurrentInstance().addMessage("login_form:login_submit", new FacesMessage("Bad credentials!"));
 		}
+		return navigateTo;
+	}
+	
+	public String doLogout(){
+		String navigateTo = null;
+		initModel();
+		navigateTo = "/welcome?faces-redirect=true";
 		return navigateTo;
 	}
 
@@ -57,6 +70,14 @@ public class AuthenticationBean implements Serializable{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 	
 	
