@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import edu.app.business.AuthenticationServiceLocal;
 import edu.app.persistence.Admin;
+import edu.app.persistence.Customer;
 import edu.app.persistence.User;
 
 
@@ -49,9 +50,12 @@ public class AuthenticationBean implements Serializable{
 			if(user instanceof Admin){
 				navigateTo = "/pages/admin/home?faces-redirect=true";
 			}
+			if(user instanceof Customer){
+				navigateTo = "/pages/customer/home?faces-redirect=true";
+			}
 			
 		}else {
-			loggedIn = false;
+			
 			FacesContext.getCurrentInstance().addMessage("login_form:login_submit", new FacesMessage("Bad credentials!"));
 		}
 		return navigateTo;
@@ -62,6 +66,18 @@ public class AuthenticationBean implements Serializable{
 		initModel();
 		navigateTo = "/welcome?faces-redirect=true";
 		return navigateTo;
+	}
+	
+	public boolean hasRole(String role){
+		boolean authorized = false;
+		if (role.equals("Admin")) {
+			authorized =  (user instanceof Admin);
+		} 
+		if (role.equals("Customer")) {
+			authorized = (user instanceof Customer);
+		}
+		
+		return authorized;
 	}
 
 	public User getUser() {

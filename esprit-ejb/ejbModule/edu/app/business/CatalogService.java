@@ -5,6 +5,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 
 import edu.app.persistence.Category;
 import edu.app.persistence.Product;
@@ -60,6 +64,18 @@ public class CatalogService implements CatalogServiceRemote, CatalogServiceLocal
 
 	public List<Category> findAllCategories() {
 		return em.createQuery("select c from Category c").getResultList();
+	}
+
+	public Category findCategoryByName(String name) {
+		Category found = null;
+		Query query = em.createQuery("select c from Category c where c.name=:x");
+		query.setParameter("x", name);
+		try{
+			found = (Category) query.getSingleResult();
+		}catch(Exception ex){
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no category with name="+name);
+		}
+		return found;
 	}
 
 }
