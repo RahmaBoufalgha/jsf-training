@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -24,6 +25,9 @@ public class RegisterBean{
 	@EJB
 	private CustomerServiceLocal customerService; 
 	
+	@ManagedProperty("#{authBean}")
+	private AuthenticationBean authBean;
+	
 	private Customer customer;
 	
 	public RegisterBean() {
@@ -36,8 +40,9 @@ public class RegisterBean{
 	
 	public String doSignUp(){
 		String navigateTo = null;
-		System.out.println("doSignUp has been invoked");
 		customerService.saveOrUpdate(customer);
+		authBean.setUser(customer);
+		navigateTo = authBean.doLogin();
 		return navigateTo;
 	}
 
@@ -60,6 +65,14 @@ public class RegisterBean{
 		if (loginInUse) {
 			throw new ValidatorException(new FacesMessage("login already in use!"));
 		}
+	}
+
+	public AuthenticationBean getAuthBean() {
+		return authBean;
+	}
+
+	public void setAuthBean(AuthenticationBean authBean) {
+		this.authBean = authBean;
 	}
 	
 	

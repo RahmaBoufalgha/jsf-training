@@ -6,6 +6,8 @@
                 	
 			<ui:define name="pageTitle">register</ui:define>		
 			<ui:define name="pageContent">
+				<h:outputScript library="primefaces/jquery" name="jquery.js"/>
+				<h:outputScript library="js" name="jquery.maskedinput.js"/>
 				<h2>Customer registration</h2>
 				<hr/>
 				<h:form id="register">
@@ -37,8 +39,14 @@
 						</h:inputText>
 						<h:message id="msg_birthdate" for="birthdate" styleClass="error"/>
 						
+						<h:commandButton immediate="true" action="/welcome?faces-redirect=true" value="cancel" />
 						<h:commandButton action="#{registerBean.doSignUp}" value="sign up" />
 					</h:panelGrid>	
+					
+					<h:outputScript>
+						$("#register\\:birthdate").mask("99/99/9999");
+					</h:outputScript>
+					
 				</h:form>
 			
 			
