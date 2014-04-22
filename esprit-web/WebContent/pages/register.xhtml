@@ -10,21 +10,21 @@
 				<hr/>
 				<h:form id="register">
 					<h:panelGrid columns="3">
-						<h:outputText value="Login" />
-						<h:inputText id="login" value="#{registerBean.customer.login}" validator="#{registerBean.validateLoginUnicity}">
+						<h:outputText value="Login*" />
+						<h:inputText id="login" value="#{registerBean.customer.login}" validator="#{registerBean.validateLoginUnicity}" required="true" requiredMessage="login is required">
 							<f:ajax event="blur" execute="@this" render="msg_login" />
 						</h:inputText>
 						<h:message id="msg_login" for="login" styleClass="error"/>
 						
-						<h:outputText value="Password" />
-						<h:inputSecret id="password" value="#{registerBean.customer.password}" validatorMessage="between 6 and 12">
+						<h:outputText value="Password*" />
+						<h:inputSecret id="password" value="#{registerBean.customer.password}" validatorMessage="between 6 and 12" required="true" requiredMessage="password is required">
 							<f:validateLength minimum="6" maximum="12" />
-							<f:ajax event="keyup" execute="@this" render="msg_password" />
+							<f:ajax event="blur" execute="@this" render="msg_password" />
 						</h:inputSecret>
 						<h:message id="msg_password" for="password" styleClass="error"/>
 						
 						<h:outputText value="Email" />
-						<h:inputText id="email" value="#{registerBean.customer.email}" >
+						<h:inputText id="email" value="#{registerBean.customer.email}" validatorMessage="invalid email!">
 							<f:ajax event="blur" execute="@this" render="msg_email" />
 							<f:validateRegex pattern="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"/>
 						</h:inputText>
