@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+
 import edu.app.business.AuthenticationServiceLocal;
 import edu.app.persistence.Admin;
 import edu.app.persistence.Customer;
@@ -55,7 +57,6 @@ public class AuthenticationBean implements Serializable{
 			}
 			
 		}else {
-			
 			FacesContext.getCurrentInstance().addMessage("login_form:login_submit", new FacesMessage("Bad credentials!"));
 		}
 		return navigateTo;
