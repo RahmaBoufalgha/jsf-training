@@ -78,4 +78,17 @@ public class CatalogService implements CatalogServiceRemote, CatalogServiceLocal
 		return found;
 	}
 
+	public byte[] findPictureByProductId(int productId) {
+		byte[] picture = null;
+		Query query = em.createQuery("select p.picture from Product p where p.id=:x");
+		query.setParameter("x", productId);
+		try{
+			picture =  (byte[]) query.getSingleResult();
+		}catch(Exception ex){
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no picture");
+		}
+		return picture;
+		
+	}
+
 }

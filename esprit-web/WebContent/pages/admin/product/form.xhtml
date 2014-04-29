@@ -6,26 +6,37 @@
                 	
 					
 			<p:panel id="details" header="product details" visible="#{productBean.formDisplayed}">
-				<h:form rendered="#{productBean.formDisplayed}">
-					<h:panelGrid columns="2">
-						<h:outputText value="id" />
-						<p:inputText value="#{productBean.product.id}" />
-						<h:outputText value="name" />
-						<p:inputText value="#{productBean.product.name}" />
-						<h:outputText value="price" />
-						<p:inputText value="#{productBean.product.unitCost}" />
-						<h:outputText value="category" />
-						<p:selectOneMenu value="#{productBean.product.category}" converter="cc">
-							<f:selectItem itemLabel="select one..." itemValue=""/>
-							<f:selectItems value="#{productBean.categories}" var="cat" itemValue="#{cat}" itemLabel="#{cat.name}"/>
-						</p:selectOneMenu>
-						<p:commandButton immediate="true" actionListener="#{productBean.doCancel}" value="cancel" update=":details"/>
+				<h:form id="details_form" rendered="#{productBean.formDisplayed}">
+				<h:panelGrid columns="3">
+						
 						<h:panelGrid columns="2">
-							<p:commandButton actionListener="#{productBean.doDelete}" value="delete" update=":master :details" oncomplete="prodTabW.filter();"/>
-							<p:commandButton actionListener="#{productBean.doSave}" value="save" update=":master :details" oncomplete="prodTabW.filter();"/>
-						</h:panelGrid>
-					</h:panelGrid>
+						
+							<h:outputText value="id" />
+							<p:inputText value="#{productBean.product.id}" styleClass="product-form-input"/>
+							
+							<h:outputText value="name" />
+							<p:inputText value="#{productBean.product.name}" styleClass="product-form-input"/>
+							
+							<h:outputText value="price" />
+							<p:inputText value="#{productBean.product.unitCost}" styleClass="product-form-input"/>
+							
+							<h:outputText value="category" />
+							<p:selectOneMenu value="#{productBean.product.category}" converter="cc" >
+								<f:selectItem itemLabel="select one..." itemValue="" />
+								<f:selectItems value="#{productBean.categories}" var="cat" itemValue="#{cat}" itemLabel="#{cat.name}"/>
+							</p:selectOneMenu>
+							
+							
+							<p:commandButton immediate="true" actionListener="#{productBean.doCancel}" value="cancel" update=":details"/>
+							<h:panelGrid columns="2">
+								<p:commandButton actionListener="#{productBean.doDelete}" value="delete" update=":master :details" oncomplete="prodTabW.filter();"/>
+								<p:commandButton actionListener="#{productBean.doSave}" value="save" update=":master :details" oncomplete="prodTabW.filter();"/>
+							</h:panelGrid>
+						</h:panelGrid>	
+						<ui:include src="/pages/admin/product/picture.xhtml" />		
+				</h:panelGrid>
 				</h:form>
-			</p:panel>	
+			</p:panel>
+			
 			
 </ui:composition>

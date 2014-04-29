@@ -24,4 +24,6 @@ public interface CatalogServiceLocal {
 	void removeCategory(Category category);
 	List<Category> findAllCategories();
 	Category findCategoryByName(String name);
+	
+	byte[] findPictureByProductId(int productId);
 }

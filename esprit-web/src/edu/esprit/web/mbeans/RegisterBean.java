@@ -11,34 +11,33 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 import edu.app.business.AuthenticationServiceLocal;
-import edu.app.business.CatalogServiceLocal;
 import edu.app.business.CustomerServiceLocal;
 import edu.app.persistence.Customer;
 
 @ManagedBean
 @RequestScoped
-public class RegisterBean{
-	
+public class RegisterBean {
+
 	@EJB
 	private AuthenticationServiceLocal authService;
-	
+
 	@EJB
-	private CustomerServiceLocal customerService; 
-	
+	private CustomerServiceLocal customerService;
+
 	@ManagedProperty("#{authBean}")
 	private AuthenticationBean authBean;
-	
+
 	private Customer customer;
-	
+
 	public RegisterBean() {
 	}
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		customer = new Customer();
 	}
-	
-	public String doSignUp(){
+
+	public String doSignUp() {
 		String navigateTo = null;
 		customerService.saveOrUpdate(customer);
 		authBean.setUser(customer);
@@ -54,16 +53,16 @@ public class RegisterBean{
 		this.customer = customer;
 	}
 
-	
-	public void validateLoginUnicity(FacesContext context, UIComponent component, Object value)
-			throws ValidatorException {
-		String loginToValidate = (String)value;
+	public void validateLoginUnicity(FacesContext context,
+			UIComponent component, Object value) throws ValidatorException {
+		String loginToValidate = (String) value;
 		if (loginToValidate == null || loginToValidate.trim().isEmpty()) {
 			return;
 		}
 		boolean loginInUse = authService.loginExists(loginToValidate);
 		if (loginInUse) {
-			throw new ValidatorException(new FacesMessage("login already in use!"));
+			throw new ValidatorException(new FacesMessage(
+					"login already in use!"));
 		}
 	}
 
@@ -74,7 +73,5 @@ public class RegisterBean{
 	public void setAuthBean(AuthenticationBean authBean) {
 		this.authBean = authBean;
 	}
-	
-	
 
 }

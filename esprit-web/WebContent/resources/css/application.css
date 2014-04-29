@@ -75,7 +75,7 @@ body {
 
 #content{
 	float: right;
-	width: 594px;
+	width: 602px;
 	height: 472px;
 	padding: 6px;
 	margin-top: 6px;
@@ -102,5 +102,43 @@ body {
 }
 
 .ui-widget, .ui-widget .ui-widget {
-font-size: 90% !important;
+font-size: 12px !important;
 }
+
+.catalog-picture{
+	width:75px;
+}
+.editor-picture{
+	width:112px;
+}
+
+.catalog-panel{
+	width:185px;
+	hight:150px;
+}
+.catalog-price{
+	
+	display: inline;
+  	padding: .2em .6em .3em;
+  	font-size: 12px;
+  	font-weight: bold;
+  	line-height: 1;
+  	color: #fff;
+  	text-align: center;
+  	white-space: nowrap;
+  	vertical-align: baseline;
+  	border-radius: .25em;
+  	background-color: #428bca;
+}
+
+.upload-dialog{
+	width:560px;
+}
+.right{
+	float:right;
+}
+
+.product-form-input{
+	width:360px;
+}
+
